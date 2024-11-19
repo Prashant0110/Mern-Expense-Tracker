@@ -57,6 +57,19 @@ const userController = {
       username: user.username,
     });
   }),
+
+  profile: expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.user);
+    console.log(req.user);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    res.json({
+      username: user.username,
+      email: user.email,
+    });
+  }),
 };
 
 module.exports = userController;
