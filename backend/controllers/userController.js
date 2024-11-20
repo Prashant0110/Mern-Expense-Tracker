@@ -70,6 +70,38 @@ const userController = {
       email: user.email,
     });
   }),
+
+  password: expressAsyncHandler(async (req, res) => {
+    const { newPassword } = req.body;
+    const user = await User.findById(req.user);
+    console.log(req.user);
+    console.log(req.user);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    user.password = hashedPassword;
+    await user.save();
+    res.status(200).json({
+      message: "Password updated successfully",
+    });
+  }),
+
+  updateUserProfile: async (req, res) => {
+    const { username, email } = req.body;
+    const user = await User.findByIdAndUpdate(req.user);
+    console.log(req.user);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    user.username = username;
+    user.email = email;
+    await user.save();
+    res.status(200).json({
+      message: "Profile updated successfully",
+    });
+  },
 };
 
 module.exports = userController;
