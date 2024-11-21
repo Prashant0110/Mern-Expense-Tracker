@@ -60,7 +60,7 @@ const userController = {
 
   profile: expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.user);
-    console.log(req.user);
+    // console.log(req.user);
     if (!user) {
       throw new Error("User not found");
     }
@@ -74,8 +74,8 @@ const userController = {
   password: expressAsyncHandler(async (req, res) => {
     const { newPassword } = req.body;
     const user = await User.findById(req.user);
-    console.log(req.user);
-    console.log(req.user);
+    // console.log(req.user);
+    // console.log(req.user);
     if (!user) {
       throw new Error("User not found");
     }
@@ -91,7 +91,7 @@ const userController = {
   updateUserProfile: async (req, res) => {
     const { username, email } = req.body;
     const user = await User.findByIdAndUpdate(req.user);
-    console.log(req.user);
+    // console.log(req.user);
     if (!user) {
       throw new Error("User not found");
     }

@@ -4,7 +4,7 @@ const isAuthenticated = async (req, res, next) => {
   //! Get the token from the header
   const headerObj = req.headers;
   const token = headerObj?.authorization?.split(" ")[1];
-  console.log(token);
+  // console.log(token);
   //!Verify the token
   const verifyToken = jwt.verify(
     token,
@@ -17,11 +17,11 @@ const isAuthenticated = async (req, res, next) => {
       }
     }
   );
-  console.log(verifyToken);
+  // console.log(verifyToken);
   if (verifyToken) {
     //!Save the user req obj
     req.user = verifyToken.userId;
-    console.log(req.user);
+    // console.log(req.user);
     next();
   } else {
     const err = new Error("Token expired, login again");

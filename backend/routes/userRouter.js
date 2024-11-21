@@ -49,4 +49,16 @@ router.get(
   transactionController.getFilteredTransactions
 );
 
+router.put(
+  "/api/v1/users/updateTransaction/:id",
+  isAuthenticated,
+  transactionController.updateTransaction
+);
+
+router.delete(
+  "/api/v1/users/deleteTransaction/:id",
+  isAuthenticated,
+  transactionController.deleteTransaction
+);
+
 module.exports = router;

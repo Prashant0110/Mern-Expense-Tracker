@@ -37,16 +37,53 @@ const transactionController = {
         { category: category },
       ],
     });
-    console.log("startDate:", newStartDate);
-    console.log("endDate:", newEndDate);
-    console.log("type:", type);
-    console.log("category:", category);
-    console.log("user:", req.user);
+    // console.log("startDate:", newStartDate);
+    // console.log("endDate:", newEndDate);
+    // console.log("type:", type);
+    // console.log("category:", category);
+    // console.log("user:", req.user);
     res.status(200).json({
       message: "Transactions fetched successfully",
       data: transactions,
     });
-    console.log(transactions);
+    // console.log(transactions);
+  }),
+
+  updateTransaction: expressAsyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const { type, category, amount, date, description } = req.body;
+
+    // Update the transaction directly
+    const updatedTransaction = await Transaction.findOneAndUpdate(
+      { _id: id, user: req.user },
+      { type, category, amount, date, description },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedTransaction) {
+      throw new Error("Transaction not found or unauthorized");
+    }
+
+    res.status(200).json({
+      message: "Transaction updated successfully",
+      data: updatedTransaction,
+    });
+  }),
+
+  //!delete
+  deleteTransaction: expressAsyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const deletedTransaction = await Transaction.findOneAndDelete({
+      _id: id,
+      user: req.user,
+    });
+    if (!deletedTransaction) {
+      throw new Error("Transaction not found or unauthorized");
+    }
+    res.status(200).json({
+      message: "Transaction deleted successfully",
+      data: deletedTransaction,
+    });
   }),
 };
 
