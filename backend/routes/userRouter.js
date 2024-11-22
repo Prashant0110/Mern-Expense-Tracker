@@ -61,4 +61,16 @@ router.delete(
   transactionController.deleteTransaction
 );
 
+router.put(
+  "/api/v1/users/updateCategory/:id",
+  isAuthenticated,
+  categoryController.updateCategory
+);
+
+router.delete(
+  "/api/v1/users/deleteCategory/:id",
+  isAuthenticated,
+  categoryController.deleteCategory
+);
+
 module.exports = router;
