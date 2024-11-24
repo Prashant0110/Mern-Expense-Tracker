@@ -72,10 +72,5 @@ router.delete(
   isAuthenticated,
   categoryController.deleteCategory
 );
-router.delete(
-  "/api/v1/users/deleteCategory/:id",
-  isAuthenticated,
-  categoryController.deleteCategory
-);
 
 module.exports = router;
