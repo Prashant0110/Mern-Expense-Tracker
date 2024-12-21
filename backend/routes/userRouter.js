@@ -73,4 +73,6 @@ router.delete(
   categoryController.deleteCategory
 );
 
+//finished all routes
+
 module.exports = router;
